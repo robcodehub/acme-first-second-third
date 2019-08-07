@@ -107,54 +107,62 @@ function renderUsers() {
 
 
   const firstHTML = firstUsers.map((user) => {
-    return `<div>${user.name}</div>`
+    return `<div class='${user.selected ? 'selected': ""}'>${user.name}</div>`
   }  ).join('');
 
 document.querySelector('#firstUsers').innerHTML = firstHTML;
 
 
 const secondHTML = secondUsers.map((user) => {
-    return `<div>${user.name}</div>`
+    return `<div class='${user.selected ? 'selected': ""}'>${user.name}</div>`
   }  ).join('');
 
 document.querySelector('#secondUsers').innerHTML = secondHTML;
 
 
 const thirdHTML = thirdUsers.map((user) => {
-    return `<div>${user.name}</div>`
+    return `<div class='${user.selected ? 'selected': ""}'>${user.name}</div>`
   }  ).join('');
 
 document.querySelector('#thirdUsers').innerHTML = thirdHTML;
 
 }
 
+
+function updatedSelected(user) {
+
+for (let i=0;i<users.length;i++) {
+  if (users[i].name === user) {
+    users[i].selected = !users[i].selected;
+}
+
+  }
+};
+
+
+
 const listsFirst = document.querySelector('#firstUsers');
 
 listsFirst.addEventListener('click', (ev) => {
   ev.target.classList.toggle('selected');
 
-for (let i=0;i<users.length;i++) {
-if (users[i].name === ev.target.innerHTML) {
-  users[i].selected = !users[i].selected;
-}
+  updatedSelected(ev.target.innerHTML);
 
-};
-
-console.log("user after loop", users)
 });
 
 const listsSecond = document.querySelector('#secondUsers');
 
 listsSecond.addEventListener('click', (ev) => {
   ev.target.classList.toggle('selected');
-  console.log(ev.target);
+
+  updatedSelected(ev.target.innerHTML);
 });
 
 const listsThird = document.querySelector('#thirdUsers');
 
 listsThird.addEventListener('click', (ev) => {
   ev.target.classList.toggle('selected');
-  console.log(ev.target);
+  updatedSelected(ev.target.innerHTML);
 });
 
 const firstToSecondButton = document.querySelector('#firstToSecond');
@@ -166,10 +174,10 @@ firstToSecondButton.addEventListener('click',(ev) => {
   });
 
   firstUsers.forEach((user) => {
-    console.log(user);
-    //if (user.selected === true) {
+
+    if (user.selected === true) {
     user.slot = 'second';
-   // }
+    }
   });
 
 renderUsers();
@@ -186,7 +194,10 @@ secondToFirstButton.addEventListener('click',(ev) => {
   });
 
   secondUsers.forEach((user) => {
-  user.slot = 'first';
+
+    if (user.selected === true) {
+      user.slot = 'first';
+    };
 });
 
 renderUsers();
@@ -203,7 +214,9 @@ secondToThirdButton.addEventListener('click',(ev) => {
   });
 
   secondUsers.forEach((user) => {
-  user.slot = 'third';
+    if (user.selected === true) {
+      user.slot = 'third';
+    }
 });
 
 renderUsers();
@@ -216,11 +229,15 @@ const thirdToSecondButton = document.querySelector('#thirdToSecond');
 thirdToSecondButton.addEventListener('click',(ev) => {
 
   const thirdUsers = users.filter((user) => {
+
     return user.slot === 'third';
+
   });
 
   thirdUsers.forEach((user) => {
+    if (user.selected === true) {
   user.slot = 'second';
+    }
 });
 
 renderUsers();
