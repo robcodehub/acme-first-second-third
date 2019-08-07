@@ -40,10 +40,10 @@
     </div>
   </div>
   <div id="second" class="container">
-      <button id="SecondToFirst">
+      <button id="secondToFirst">
           <
         </button>
-      <button id="SecondToThird">
+      <button id="secondToThird">
           >
         </button>
       <h2> Second</h2>
@@ -52,7 +52,7 @@
       </div>
   </div>
   <div id="third" class="container">
-      <button id="ThirdToSecond">
+      <button id="thirdToSecond">
           <
         </button>
       <h2> Third</h2>
@@ -67,26 +67,80 @@
   <script>
     const slots = ['first', 'second', 'third'];
     const users = [
-      {id: 1, name: 'moe', slot: 'first'},
-      {id: 2, name: 'larry', slot: 'second'},
-      {id: 3, name: 'curly', slot: 'third'},
-      {id: 4, name: 'lucy', slot: 'third', selected: true},
+      {id: 1, name: 'moe', slot: 'first', selected: false},
+      {id: 2, name: 'larry', slot: 'second', selected: false},
+      {id: 3, name: 'curly', slot: 'third', selected: false},
+      {id: 4, name: 'lucy', slot: 'third', selected: false},
       ];
 
 
+/*
+function updateSelectedUsers(targetName) {
 
-  const html = users.map((user) => {
+for (let i=0;i<users.length;i++) {
+if (users[i].name === targetName && users[i].selected === undefined) {
+  users[i]['selected'] === true;
+} else if (users[i].name === targetName) {
+  users[i].selected === !users[i].selected;
+}
+
+}
+return users;
+};
+*/
+
+function renderUsers() {
+
+
+  const firstUsers = users.filter((user) => {
+    return user.slot === 'first';
+  });
+
+
+  const secondUsers = users.filter((user) => {
+    return user.slot === 'second';
+  });
+
+  const thirdUsers = users.filter((user) => {
+    return user.slot === 'third';
+  });
+
+
+  const firstHTML = firstUsers.map((user) => {
     return `<div>${user.name}</div>`
   }  ).join('');
 
-document.querySelector('#firstUsers').innerHTML = html;
+document.querySelector('#firstUsers').innerHTML = firstHTML;
 
+
+const secondHTML = secondUsers.map((user) => {
+    return `<div>${user.name}</div>`
+  }  ).join('');
+
+document.querySelector('#secondUsers').innerHTML = secondHTML;
+
+
+const thirdHTML = thirdUsers.map((user) => {
+    return `<div>${user.name}</div>`
+  }  ).join('');
+
+document.querySelector('#thirdUsers').innerHTML = thirdHTML;
+
+}
 
 const listsFirst = document.querySelector('#firstUsers');
 
 listsFirst.addEventListener('click', (ev) => {
   ev.target.classList.toggle('selected');
-  console.log(ev.target);
+
+for (let i=0;i<users.length;i++) {
+if (users[i].name === ev.target.innerHTML) {
+  users[i].selected = !users[i].selected;
+}
+
+};
+
+console.log("user after loop", users)
 });
 
 const listsSecond = document.querySelector('#secondUsers');
@@ -102,6 +156,80 @@ listsThird.addEventListener('click', (ev) => {
   ev.target.classList.toggle('selected');
   console.log(ev.target);
 });
+
+const firstToSecondButton = document.querySelector('#firstToSecond');
+
+firstToSecondButton.addEventListener('click',(ev) => {
+
+  const firstUsers = users.filter((user) => {
+    return user.slot === 'first';
+  });
+
+  firstUsers.forEach((user) => {
+    console.log(user);
+    //if (user.selected === true) {
+    user.slot = 'second';
+   // }
+  });
+
+renderUsers();
+
+});
+
+//Items selected in second slot to first slot
+const secondToFirstButton = document.querySelector('#secondToFirst');
+
+secondToFirstButton.addEventListener('click',(ev) => {
+
+  const secondUsers = users.filter((user) => {
+    return user.slot === 'second';
+  });
+
+  secondUsers.forEach((user) => {
+  user.slot = 'first';
+});
+
+renderUsers();
+
+});
+
+//Items selected in second slot to third slot
+const secondToThirdButton = document.querySelector('#secondToThird');
+
+secondToThirdButton.addEventListener('click',(ev) => {
+
+  const secondUsers = users.filter((user) => {
+    return user.slot === 'second';
+  });
+
+  secondUsers.forEach((user) => {
+  user.slot = 'third';
+});
+
+renderUsers();
+
+});
+
+//Items selected in third slot to second slot
+const thirdToSecondButton = document.querySelector('#thirdToSecond');
+
+thirdToSecondButton.addEventListener('click',(ev) => {
+
+  const thirdUsers = users.filter((user) => {
+    return user.slot === 'third';
+  });
+
+  thirdUsers.forEach((user) => {
+  user.slot = 'second';
+});
+
+renderUsers();
+
+});
+
+
+
+renderUsers();
 
 
   </script>
