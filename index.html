@@ -7,9 +7,14 @@
 
   <style>
 
-.selected {
- background-color: tomato;
-}
+   .selected {
+    background-color: tomato;
+    }
+
+    .main-container {
+     display: flex;
+     flex-direction: row;
+    }
 
     .container {
       border: solid tomato 1px;
@@ -27,7 +32,7 @@
 
 <body>
 <h1> Acme First, Second, Third</h1>
-<div id='lists'>
+<div id='lists' class='main-container'>
   <div id="first" class="container">
       <button id="firstToSecond">
           >
