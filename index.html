@@ -7,6 +7,19 @@
 
   <style>
 
+    body {
+      font-family: verdana;
+    }
+
+    .enabled-button {
+      background-color: tomato;
+
+    }
+
+    button {
+      height: 3rem;
+    }
+
    .selected {
     background-color: tomato;
     }
@@ -33,8 +46,12 @@
 <body>
 <h1> Acme First, Second, Third</h1>
 <div id='lists' class='main-container'>
+
   <div id="first" class="container">
-      <button id="firstToSecond">
+      <button disabled>
+          <
+        </button>
+      <button id="firstToSecond" class="enabled-button">
           >
         </button>
     <h2> First</h2>
@@ -45,10 +62,10 @@
     </div>
   </div>
   <div id="second" class="container">
-      <button id="secondToFirst">
+      <button id="secondToFirst" class="enabled-button">
           <
         </button>
-      <button id="secondToThird">
+      <button id="secondToThird" class="enabled-button">
           >
         </button>
       <h2> Second</h2>
@@ -57,9 +74,12 @@
       </div>
   </div>
   <div id="third" class="container">
-      <button id="thirdToSecond">
+      <button id="thirdToSecond" class="enabled-button">
           <
         </button>
+        <button disabled>
+          >
+          </button>
       <h2> Third</h2>
       <div id="thirdUsers">
 
